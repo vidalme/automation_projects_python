@@ -1,0 +1,17 @@
+
+destiny: "./reports"
+period: 7
+
+# lista de servidores para fazer back up
+servers:
+  
+  - name: mainlab
+    user: vidal
+    server_ip: 192.168.100.7
+    log_dirs: [ "/var/log/dummmy_log" , "/var/log/dummy_service/dummmy_log" ]
+      
+
+  - name: secondarylab
+    user: vidal
+    server_ip: 192.168.100.5
+    log_dirs: [ "/var/log/dummmy_log" , "/var/log/dummy_service/dummmy_log" ]

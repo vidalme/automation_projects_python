@@ -1,0 +1,1 @@
+esse aqui é o texto de dentro do file2.txt, the end.

@@ -1,0 +1,2 @@
+oi bom dia
+esse aqui é o texto de dentro do test.txt, the end.

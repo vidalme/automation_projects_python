@@ -1,9 +1,9 @@
-# backup_server_logs
+# baclog
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-backup_server_logs é uma ferramenta em Python para automatizar a coleta e backup de logs de servidores remotos.
+baclog é uma ferramenta em Python para automatizar a coleta e backup de logs de servidores remotos.
 
 ## Descrição
 
@@ -13,15 +13,14 @@ Este script automatiza o processo de coleta de logs de servidores remotos listad
 
 - Python 3.x
 - Fabric (instalável via `pip install fabric`)
-- Sistema operacional compatível com as ferramentas utilizadas (journalctl, tar)
 
 ## Instalação
 
 <h4>1. Clone o repositório:</h4>
 
 ```bash
-git clone https://github.com/seu_usuario/backup_server_logs.git
-cd backup_server_logs
+git clone https://github.com/vidalme/baclog.git
+cd baclog
 ```
 
 <h4>2.Instale as dependências:</h4>
@@ -34,10 +33,10 @@ pip install -r requirements.txt
 
 <p>O arquivo config.yaml contém as seguintes opções:
 
-<b>destiny:</b> diretório onde os logs serão salvos localmente.<br>
-<b>period:</b> número máximo de arquivos de backup que serão mantidos.<br>
-<b>servers:</b> lista de servidores remotos e suas configurações.<br>
-<p>É possível adicionar quantos servidores quiser a lista.
+<b>destiny:</b> Diretório local onde os logs serão salvos.<br>
+<b>period:</b> Número máximo de arquivos de backup que serão mantidos.<br>
+<b>servers:</b> Lista de servidores remotos e suas configurações.<br>
+<p>É possível adicionar quantos servidores quiser na lista.
 <p>Exemplo de config.yaml:
 
 ```yaml
@@ -56,7 +55,7 @@ servers:
 ```
 
 <h4>4.Contribuindo:</h4>
-<p>Contribuições são bem-vindas, so fazer o PR!
+<p>PRs são bem-vindos.
 
 <h4>5.Licença:</h4>
 <p>Este projeto está licenciado sob a Licença MIT - consulte o arquivo LICENSE para mais detalhes.

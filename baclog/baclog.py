@@ -11,7 +11,7 @@ def usage_message():
     print('''
 ################################################################################### 
           
-                         [[   backup_server_logs   ]]
+                         [[   baclog   ]]
             
                 Coleta multiplos logs de multiplos servidores remotos 
                                 e salva localmente 
@@ -21,13 +21,13 @@ def usage_message():
 ###################################################################################
           ''')
     print(f"NOME")
-    print(f"        backup_server_logs")
+    print(f"        baclog")
     # print()
     # print(f"SYNOPSIS")
-    # print(f"        backup_server_logs")
+    # print(f"        baclog")
     print()
     print(f"DESCRIÇÃO")
-    print("         O backup_server_logs é uma ferramenta para automatizar")
+    print("         O baclog é uma ferramenta para automatizar")
     print("         a coleta e backup de logs vindos de uma lista de servidores.")         
     print("         Os servidores que terão logs coletados estão listados no arquivo")
     print("         de configuração 'config.yaml' que deve residir no mesmo local")
@@ -69,32 +69,27 @@ def main():
             #carrega dados do arquivo de configuracoes
             config = yaml.safe_load(f)
 
-            #numero maximo de arquivos acumulados de backup
+            #settings
             max_acumulado = config['period']
-            
-            #destino de todos os backups
             destiny = config['destiny']
-
-            #arquivo final (comprimido)
             comp_file_name = f"{destiny}.tar.gz"
 
-            #diretorios separados para logs sucesso e falhas
+            #diretorios separados para logs de sucesso e falhos
             sl_fol = "successful_logins"
             fl_fol = "failed_logins"
 
-        #loop na lista de servidores de interesse
+        #loop na lista de servidores
         for server in config['servers']:
-            #usuario que loga no server
+            
+            #settings
             user = server['user']
-            #ip do servidor
             ip = server['server_ip']
-            #hosname
             name = server['name']
             
             #path especifico para o servidor da vez
             destiny_plus = os.path.join(destiny,name)
 
-            #paths para os diretorios dentro do path do servidor
+            #paths para os diretorios dentro do servidor remoto
             sl_dir = os.path.join(destiny_plus,sl_fol)    
             fl_dir = os.path.join(destiny_plus,fl_fol)    
 

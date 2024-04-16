@@ -1,9 +1,16 @@
 #!/usr/bin/env python
+# Autor: Andre Vidal Almeida
+# https://github.com/vidalme
+#
+# v0.1
+# - le uma lista de servidores e se conecta a cada um deles com ssh
+# - envia todo o conteudo desejado a cada um dos servidores
+#
 
 import sys, os,subprocess
 import paramiko
 
-#chamada em caso de engano ou mal uso do script
+#help
 def usage_message():
     print()
     print('''
@@ -11,9 +18,10 @@ def usage_message():
           
                     [[   paratodos.py   ]]
           
-        Script que recebe um diretorio local e envia todo seu 
-        conteudo para outro diretorio remoto em uma lista de 
-        servidores carregadas do arquivo -> // server_list.txt // 
+        O script paratodos.py recebe dois argumentos, um path 
+        de destino e um path alvo, envia o conteudo de um 
+        diretorio local para todos os servidores listados no 
+        arquivo './servers_list.txt'.
                   
 #########################################################################
           ''')
@@ -29,11 +37,13 @@ def usage_message():
     print()
     sys.exit()
 
-#chamada em caso de o diretorio nao existir ou estar vazio
+#o diretorio passado como argumento nao existir ou estar vazio
 def no_files():
     print(f"O diretorio [ {sys.argv[1]} ] não existe no local ou esta vazio")
     usage_message()
 
+
+#o arquivo contento a lista de servidores ão existe ou esta vazia
 def no_servers(s):
     print(f"O arquivo {s} não existe no local ou esta vazio")
     usage_message()
@@ -41,8 +51,7 @@ def no_servers(s):
 #main business logic
 def uploader():
 
-    #arquivo com uma lista de ips, cada um representa 
-    #um servidor remoto que ira receber os arquivos enviados
+    #arquivo com uma lista de ips dos servidores que vao fazer o download dos arquivos
     SERVIDORES = "server_list.txt"
 
     #usuario para ssh na lista de serivdores
@@ -62,7 +71,7 @@ def uploader():
     #path completo do diretorio que tem os arquivos a serem enviados (apenas os arquivos sao enviados)
     source_dir = os.path.join(os.getcwd(),sys.argv[1])
     
-    #path completo do diretorio remoto que recebera os arquivos do servidor local
+    #path completo do diretorio remoto que recebera os arquivos vindos do servidor local
     target_dir = f"/home/{os.path.join(USUARIO,diretorio_destino)}/"
 
     #lista de arquivos a serem enviados ja com seus paths completos
@@ -98,23 +107,16 @@ def uploader():
 
         # loop em todos os arquivos que serao enviados
         for item in arquivos:
-            pass
-            #sftp tem metodo para enviar e receber
-            # sftp.put(item,os.path.join(target_dir,os.path.basename(item)))
+            # coloca cada um no diretorio escolhido
+            sftp.put(item,target_dir)
 
-            # print(f'''O arquivo {item} \n
-            #        foi enviado para o servidor {server}\n
-            #         com o nome {os.path.join(target_dir,os.path.basename(item))}
-            #     ''')
-            # print()
-            # arquivo_enviado = subprocess.run(['scp', item , f"{USUARIO}@{server}:{target_dir}" ])
-
-        #fechando as conexoes com o servidor
+        #fecha sftp
         sftp.close()
+        #fecha ssh
         ssh.close()
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     # primeira coisa checar se o usuario quer ajuda
     if sys.argv[1] == "-h" or sys.argv[1] == "-help":
         usage_message()

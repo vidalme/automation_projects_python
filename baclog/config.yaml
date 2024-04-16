@@ -1,0 +1,21 @@
+
+destiny: "./reports"
+period: 7
+
+# lista de servidores para fazer back up
+servers:
+  
+  - name: server01
+    user: ubuntu
+    server_ip: 13.59.66.130
+    log_dirs: [ "/var/log/dummmy_log" , "/var/log/dummy_service/dummmy_log" ]
+
+  - name: server02
+    user: ubuntu
+    server_ip: 3.145.61.87
+    log_dirs: [ "/var/log/dummmy_log" , "/var/log/dummy_service/dummmy_log" ]
+
+  - name: server03
+    user: ubuntu
+    server_ip: 18.191.236.82
+    log_dirs: [ "/var/log/dummmy_log" , "/var/log/dummy_service/dummmy_log" ]

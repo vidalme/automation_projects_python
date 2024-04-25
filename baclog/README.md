@@ -3,7 +3,9 @@
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-baclog é uma ferramenta em Python para automatizar a coleta e backup de logs de servidores remotos.
+<p><b>baclog</b> é uma ferramenta em Python para automatizar a coleta, organização e backup dos logs de multiplos servidores remotos.
+
+<p> O script precisa de python3 instalado e o módulo paramiko para fazer o upload dos arquivos de forma segura com ssh.
 
 ## Descrição
 

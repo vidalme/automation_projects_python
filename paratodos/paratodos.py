@@ -3,8 +3,8 @@
 # https://github.com/vidalme
 #
 # v0.1
-# - le uma lista de servidores e se conecta a cada um deles com ssh
-# - envia todo o conteudo desejado a cada um dos servidores
+# - lê uma lista de servidores e se conecta a cada um deles com ssh
+# - envia todo o conteúdo desejado a cada um dos servidores
 #
 
 import sys, os,subprocess
@@ -14,68 +14,67 @@ import paramiko
 def usage_message():
     print()
     print('''
-#########################################################################  
-          
-                    [[   paratodos.py   ]]
-          
-        O script paratodos.py recebe dois argumentos, um path 
-        de destino e um path alvo, envia o conteudo de um 
-        diretorio local para todos os servidores listados no 
-        arquivo './servers_list.txt'.
-                  
-#########################################################################
+###################################################################
+|                                                                 |
+|                    [[   paratodos.py   ]]                       | 
+|                                                                 |
+|        O script paratodos.py recebe dois argumentos,            |
+|        um diretório alvo e um diretório destino.                |
+|                                                                 |
+|        O conteúdo do diretorio alvo é enviado para o            |   
+|        diretório destino 'paratodos' os servidores              |
+|        definidos no arquivo './servers_list.txt'.               |
+|                                                                 |
+|                                                                 |
+###################################################################
           ''')
-    print(f"Usage: Command [ path destino ] [ path alvo ]")
+    print(f"Uso: ./paratodos.py [ diretório alvo ] [ diretório destino ]")
     print(f"")
-    print(f'''[ path destino ]    --  O path do diretorio destino: todos os arquivos desse diretorio serao 
-                        enviados para a lista de servidores que estão lsitadas no arquivo 
-                        server_list.txt''')
+    print(f'''[ diretório alvo ]      Todos os arquivos desse diretório serão 
+                        enviados para os servidores definidos.''')
     print()
-    print(f'''[ path alvo ]       --  O path do diretorio alvo: cada servidor remoto recebera os arquivos na 
-                        pasta do usuario $USUARIO/[path alvo], se esse diretorio não existir 
-                        ele sera criado atuomaticamente''')
+    print(f'''[ diretório destino ]   Cada servidor remoto receberá os arquivos na 
+                        pasta criada dentro da /home/USUARIO . ''')
     print()
     sys.exit()
 
-#o diretorio passado como argumento nao existir ou estar vazio
+#diretório destino não existe ou está vazio
 def no_files():
-    print(f"O diretorio [ {sys.argv[1]} ] não existe no local ou esta vazio")
+    print(f"O diretório [ {sys.argv[1]} ] não existe ou está vazio")
     usage_message()
 
 
-#o arquivo contento a lista de servidores ão existe ou esta vazia
+# server_list.txt não existe ou está vazio
 def no_servers(s):
-    print(f"O arquivo {s} não existe no local ou esta vazio")
+    print(f"O arquivo {s} não existe ou está vazio")
     usage_message()
 
 #main business logic
-def uploader():
+def paratodos():
 
-    #arquivo com uma lista de ips dos servidores que vao fazer o download dos arquivos
+    #arquivo que define os servidores que irão receber os arquivos
     SERVIDORES = "server_list.txt"
 
-    #usuario para ssh na lista de serivdores
-    #todos os servidores que forem receber arquivos 
-    #precisam ter um usuario com esse nome exatamente
-    USUARIO = "vidal"
+    # usuário que logará nos servidores
+    USUARIO = "andre"
 
-    #primeiro parametro recebe o diretorio dos arqvuios a serem enviados
-    arquivos_dir = sys.argv[1]
+    #diretório dos arquivos a serem enviados
+    dir_alvo = sys.argv[1]
     
-    #segundo parametro recebe o diretorio destino dentro de /home/USUARIO que ira receber os arqvuios
-    diretorio_destino = sys.argv[2]
+    #diretório destino irá ser criado dentro de /home/USUARIO
+    dir_destino = sys.argv[2]
 
-    #checa se o diretorio local passado no argumento existe e contem arquivos
-    if not os.path.exists(arquivos_dir) or not os.listdir(arquivos_dir): no_files()
-
-    #path completo do diretorio que tem os arquivos a serem enviados (apenas os arquivos sao enviados)
-    source_dir = os.path.join(os.getcwd(),sys.argv[1])
+    #checa se o diretorio alvo existe e não está vazio
+    if not os.path.exists(dir_alvo) or not os.listdir(dir_alvo): no_files()
     
-    #path completo do diretorio remoto que recebera os arquivos vindos do servidor local
-    target_dir = f"/home/{os.path.join(USUARIO,diretorio_destino)}/"
-
+    #monta path do diretório alvo
+    path_alvo = os.path.join(os.getcwd(),sys.argv[1])
+    
+    # #monta path do diretorio remoto 
+    path_destino = f"/home/{os.path.join(USUARIO,dir_destino)}/"
+    
     #lista de arquivos a serem enviados ja com seus paths completos
-    arquivos = [ os.path.join(source_dir,arq) for arq in os.listdir(source_dir) ] 
+    arquivos = [ os.path.join(path_alvo,arq) for arq in os.listdir(path_alvo) ] 
     
     #coleta a lista de servidores que vao receber os arquivos
     with open(SERVIDORES,'r') as sl:
@@ -85,41 +84,42 @@ def uploader():
         #checa se existem servidores na lista de servidores do arquivo source        
         if not servers: no_servers(SERVIDORES)
 
-        # splita a string nas quebras de linha '\n' e insere cada parte splitada em uma lista
+        # cria uma lista com os servidores
         servers = servers.splitlines()
-    
-    # entra em cada servidor na lista
+        # print(servers)
+
+    # loop servidores remotos
     for server in servers:
        
-        #create ssh client
+        #cria o cliente ssh e conecta com ele no servidor
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
        
-        # Connect to the server
         ssh.connect(hostname=server, username=USUARIO)
         
-        # Create SFTP client
+        # cria o cliente sftp
         sftp = ssh.open_sftp()
 
-        # checa se a pasta destino existe, se nao, cria ela em cada servidor
-        try: sftp.stat(target_dir)
-        except IOError: sftp.mkdir(target_dir)
+        # cria a pasta destino caso ainda não exista
+        try: sftp.stat(path_destino)
+        except IOError: sftp.mkdir(path_destino)
+        # entra no diretorio destino
+        sftp.chdir(path_destino)
 
-        # loop em todos os arquivos que serao enviados
+        # loop todos os arquivos e os envia
         for item in arquivos:
-            # coloca cada um no diretorio escolhido
-            sftp.put(item,target_dir)
+            destino = os.path.basename(item)
+            sftp.put(item,destino)
 
-        #fecha sftp
         sftp.close()
-        #fecha ssh
         ssh.close()
 
 
 if __name__ == "__main__":
-    # primeira coisa checar se o usuario quer ajuda
-    if sys.argv[1] == "-h" or sys.argv[1] == "-help":
+    # help
+    if sys.argv[1] == "-h" or sys.argv[1] == "-help" or len(sys.argv)-1 <= 1:
         usage_message()
     else:
+        pass
         #roda a logica
-        uploader()
+        paratodos()

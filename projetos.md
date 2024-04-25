@@ -23,5 +23,5 @@
 <h4><a href='fuxico/README.md'>fuxico</a> -> Monitoramento de Recursos do Sistema Linux </h4>
 <h4><a href='paratodos/README.md'>paratodos</a> -> Upload de multiplos diretorios para multiplos servidores com SSH</h4>
 <h4><a href='pseport/README.md'>pseport</a> -> Captura e loga os processos do usuário.</h4>
-<h4><a href='gitz/README.md'>gitz</a> -> Adiciona os arquivos alterado no git, comita e push.</h4>
+
 

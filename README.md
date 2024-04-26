@@ -2,7 +2,7 @@
 #Autor: Andre Vidal Almeida<br>
 
 <p style='font-size:1.8rem;color:gold'>Deadline -> 26/04 às 23:59 horas
-<p><a href="desafios.md">Rápida descrição dos projetos criados</a>
+<p><a href="projetos.md">Rápida descrição dos projetos criados</a>
  <p><a href="https://docs.google.com/document/d/1TKWtE9-2tH8v9-H_ahCH04DlHizMDq3Cc-8ZGo77YCo/edit">Guidelines oficiais do projeto prático</a>
 <p><a href='https://forms.gle/ZJopyXdvf4d1uF9h7'>Formulário de entrega</a>
 

@@ -5,11 +5,11 @@
 
 <p><b>baclog</b> é uma ferramenta em Python para automatizar a coleta, organização e backup dos logs de multiplos servidores remotos.
 
-<p> O script precisa de python3 instalado e o módulo paramiko para fazer o upload dos arquivos de forma segura com ssh.
+<p> O script precisa de python3 e o módulo fabric instalados.
 
 ## Descrição
 
-Este script automatiza o processo de coleta de logs de servidores remotos listados em um arquivo de configuração YAML e os salva localmente em um diretório organizado por servidor e tipo de login (sucesso ou falha). Os logs são então compactados em um arquivo tar.gz para fácil armazenamento e transporte.
+Este script automatiza o processo de coleta de logs de servidores remotos listados em um arquivo de configuração YAML e os salva localmente em um diretório separados com base em qual servidor os dados vieram. Os logs são compactados em um arquivo tar.gz para fácil armazenamento e transporte.
 
 ## Pré-requisitos
 
@@ -31,7 +31,7 @@ cd baclog
 pip install -r requirements.txt
 ```
 
-<h4>3.Configure o arquivo config.yaml com as informações dos servidores e as opções desejadas:</h4>
+<h4>3.Re-defina o arquivo config.yaml com as informações dos servidores e as opções desejadas:</h4>
 
 <p>O arquivo config.yaml contém as seguintes opções:
 
@@ -60,4 +60,4 @@ servers:
 <p>PRs são bem-vindos.
 
 <h4>5.Licença:</h4>
-<p>Este projeto está licenciado sob a Licença MIT - consulte o arquivo LICENSE para mais detalhes.
+<p>Este projeto está sob a Licença MIT - consulte o arquivo LICENSE para mais detalhes.

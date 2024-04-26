@@ -1,21 +1,25 @@
 
-destiny: "./reports"
-period: 7
+destino: "./reports"
+periodo: 7
 
 # lista de servidores para fazer back up
+# aqui nesse exemplo eu subi 3x aws ec2 com 
 servers:
   
-  - name: server01
+  - name: server01  
     user: ubuntu
-    server_ip: 13.59.66.130
+    server_ip: 54.84.219.32
+    chave: "generic.pem"
     log_dirs: [ "/var/log/dummmy_log" , "/var/log/dummy_service/dummmy_log" ]
 
   - name: server02
     user: ubuntu
-    server_ip: 3.145.61.87
+    server_ip: 54.85.104.222
+    chave: "generic.pem"
     log_dirs: [ "/var/log/dummmy_log" , "/var/log/dummy_service/dummmy_log" ]
 
   - name: server03
     user: ubuntu
-    server_ip: 18.191.236.82
+    server_ip: 44.205.250.64
+    chave: "generic.pem"
     log_dirs: [ "/var/log/dummmy_log" , "/var/log/dummy_service/dummmy_log" ]

@@ -1,11 +1,11 @@
 <h1>Projetos</h1>
-<p>5 projetos no total separados em projetos principais (escopo maior) e projetos secundários (escopo menor).
+<p>4 projetos no total separados em projetos principais (escopo maior) e projetos secundários (escopo menor).
 <h2>Projetos Principais</h2>
 <p>Projetos maiores com varias funcionalidades e amplamente documentado no codigo em em forma de help na CLI.
 <h3><a href='trem/README.md'>trem</a></h3>
 <li>Gerenciamento de usuários e suas permissões.
-<li>Recebe
-<li>Automatizar o processo de adicionar novos usuarios e um sistema Linux, separados em grupos diferentes para cada departamento (ex: devs para devsm, ops para os time ops)
+<li>Recebe um arquivo XLS ou CVS com a lista de usuários a serem criados.
+<li>Automatizar o processo de adicionar novos usuarios e um sistema Linux, separados em grupos diferentes para cada departamento (ex: devs para devs, ops para os time ops)
 
 <li>geração de reports</li>
 <br>
@@ -20,7 +20,6 @@
 <br>
 <h2>Projetos secundários</h2>
 <p>Projetos menores com funcionalidades mais limitadas e menos documentadas.
-<h4><a href='fuxico/README.md'>fuxico</a> -> Monitoramento de Recursos do Sistema Linux </h4>
 <h4><a href='paratodos/README.md'>paratodos</a> -> Upload de multiplos diretorios para multiplos servidores com SSH</h4>
 <h4><a href='pseport/README.md'>pseport</a> -> Captura e loga os processos do usuário.</h4>
 
